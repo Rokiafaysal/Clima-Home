@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smart_home_app/screens/bottom_nav_page.dart';
-import 'package:smart_home_app/screens/control_page.dart';
 import 'package:smart_home_app/screens/welcome_page.dart';
 
 void main() {
@@ -19,7 +17,7 @@ class MyApp extends StatelessWidget {
        // scaffoldBackgroundColor: Colors.white
  
       ),
-      home:  BottomNavScreen(),
+      home:  WelcomePage(),
     );
   }
 }

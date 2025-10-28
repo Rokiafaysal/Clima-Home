@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:smart_home_app/screens/bottom_nav_page.dart';
 import 'package:smart_home_app/screens/dashBoard_Page.dart';
 
 class Onboarding3Page extends StatelessWidget {
@@ -31,7 +32,7 @@ class Onboarding3Page extends StatelessWidget {
             ),
             SizedBox(height: height * (8 / 871)),
             Text(
-              'AI forecast and smart rules help you  \n save energy while staying comfortable.',
+              'Use AI, smart rules, and voice control \nfor total comfort and efficiency.',
               textAlign: TextAlign.center,
 
               style: TextStyle(
@@ -110,7 +111,7 @@ class Onboarding3Page extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => DashboardPage()),
+                    MaterialPageRoute(builder: (context) => BottomNavScreen()),
                   );
                 },
                 style: ElevatedButton.styleFrom(

@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:smart_home_app/screens/Onboarding3_Page.dart';
 
@@ -29,7 +30,7 @@ class Onboarding2Page extends StatelessWidget {
             ),
             SizedBox(height: height * (8 / 871)),
             Text(
-              'Fan, lights, and curtains respond \n automatically to weather and motion.',
+              'Fans, lights, curtains and garage \n react to weather and motion.',
               textAlign: TextAlign.center,
 
               style: TextStyle(
