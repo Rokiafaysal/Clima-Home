@@ -1,10 +1,8 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:flutter/material.dart';
-import 'package:smart_home_app/screens/onboarding2_Page.dart';
 
 class Onboarding1Page extends StatelessWidget {
-  const Onboarding1Page({super.key});
+  final VoidCallback onPressed;
+  const Onboarding1Page({super.key,required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -52,39 +50,6 @@ class Onboarding1Page extends StatelessWidget {
             ),
 
 
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width:  width* (8/390),
-                  height: height*(8/871),
-                  decoration: BoxDecoration(
-                    color: Color(0xFFBBBBF7),
-                    shape: BoxShape.circle,
-                  ),
-                ),
-                SizedBox(width: width*(12/390)),
-                Container(
-                  width:  width* (8/390),
-                  height: height*(8/871),
-                  decoration: BoxDecoration(
-                    color: Color(0xFFBBBBF7).withOpacity(0.3),
-                    shape: BoxShape.circle,
-                  ),
-                ),
-                SizedBox(width: width*(12/390)),
-                Container(
-                  width:  width* (8/390),
-                  height: height*(8/871),
-                  decoration: BoxDecoration(
-                    color: Color(0xFFBBBBF7).withOpacity(0.3),
-                    shape: BoxShape.circle,
-                  ),
-                ),
-              ],
-            ),
-
             SizedBox(height: height * (24/871)),
 
 
@@ -110,12 +75,7 @@ class Onboarding1Page extends StatelessWidget {
                 borderRadius: BorderRadius.circular(24),
               ),
               child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Onboarding2Page()),
-                  );
-                },
+                onPressed:onPressed,
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
 

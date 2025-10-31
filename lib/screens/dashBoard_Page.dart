@@ -1,5 +1,7 @@
 // ignore_for_file: deprecated_member_use
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:smart_home_app/Provider/Provider.dart';
 import 'package:smart_home_app/widgets/card_home.dart';
 import 'package:smart_home_app/widgets/circle_card.dart';
 
@@ -165,11 +167,10 @@ class _DashboardPageState extends State<DashboardPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    CircleCard(image: 'assets/images/Fan.png', name: 'Fan'),
-                                    CircleCard(image: 'assets/images/light.png', name: 'Light' ,color: Color(0xffBABAF7),),
-                    CircleCard(image: 'assets/images/Curtain.png', name: 'Curtain')
-                        ,            CircleCard(image: 'assets/images/Garage.png', name: 'Garage')
-
+                    CircleCard(image: 'assets/images/Fan.png', name: 'Fan',color:Provider.of<CurrentSate>(context).fan_State? Color(0xffBABAF7):Color(0xfff7f7fb)),
+                    CircleCard(image: 'assets/images/light.png', name: 'Light' ,color:Provider.of<CurrentSate>(context).Light_State? Color(0xffBABAF7):Color(0xfff7f7fb),),
+                    CircleCard(image: 'assets/images/Curtain.png', name: 'Curtain',color:Provider.of<CurrentSate>(context).Curtain_State? Color(0xffBABAF7):Color(0xfff7f7fb)),
+                    CircleCard(image: 'assets/images/Garage.png', name: 'Garage',color:Provider.of<CurrentSate>(context).Garage_State? Color(0xffBABAF7):Color(0xfff7f7fb))
                   ],
                 ),
               ),

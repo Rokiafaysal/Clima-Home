@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smart_home_app/screens/onboarding1_page.dart';
+import 'package:smart_home_app/screens/onboarding/onBoarding.dart';
+
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -74,7 +75,7 @@ class WelcomePage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Onboarding1Page()),
+                  MaterialPageRoute(builder: (context) => Onboarding()),
                 );
               },
               style: ElevatedButton.styleFrom(

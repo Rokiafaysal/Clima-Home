@@ -1,8 +1,6 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:flutter/material.dart';
-import 'package:smart_home_app/screens/bottom_nav_page.dart';
-import 'package:smart_home_app/screens/dashBoard_Page.dart';
+import 'package:smart_home_app/widgets/bottom_nav_page.dart';
+
 
 class Onboarding3Page extends StatelessWidget {
   const Onboarding3Page({super.key});
@@ -51,40 +49,7 @@ class Onboarding3Page extends StatelessWidget {
             ),
 
             SizedBox(height: height * (16/871)),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width:  width* (8/390),
-                  height: height*(8/871),
-                  decoration: BoxDecoration(
-                    color: Color(0xFFBBBBF7).withOpacity(0.3),
-                    shape: BoxShape.circle,
-                  ),
-                ),
-                SizedBox(width: width*(12/390)),
-                Container(
-                  width:  width* (8/390),
-                  height: height*(8/871),
-                  decoration: BoxDecoration(
-                    color: Color(0xFFBBBBF7).withOpacity(0.3),
-                    shape: BoxShape.circle,
-                  ),
-                ),
-                SizedBox(width: width*(12/390)),
-                Container(
-                  width:  width* (8/390),
-                  height: height*(8/871),
-                  decoration: BoxDecoration(
-                    color: Color(0xFFBBBBF7),
-                    shape: BoxShape.circle,
-                  ),
-                ),
-              ],
-            ),
-
-            SizedBox(height: height * (24/871)),
+            SizedBox(height: height * (50/871)),
 
              Container(
               width: width * (140 / 390),
@@ -109,9 +74,9 @@ class Onboarding3Page extends StatelessWidget {
               ),
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(builder: (context) => BottomNavScreen()),
+                    MaterialPageRoute(builder: (context) => BottomNavScreen()),(route) => false
                   );
                 },
                 style: ElevatedButton.styleFrom(

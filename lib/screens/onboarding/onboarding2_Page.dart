@@ -1,9 +1,9 @@
-
 import 'package:flutter/material.dart';
-import 'package:smart_home_app/screens/Onboarding3_Page.dart';
 
 class Onboarding2Page extends StatelessWidget {
-  const Onboarding2Page({super.key});
+  final VoidCallback onPressed;
+
+  const Onboarding2Page({super.key,required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -44,44 +44,11 @@ class Onboarding2Page extends StatelessWidget {
 
             SizedBox(
               width: double.infinity,
-              height: height * (375 / 871),
+              height: height * (350 / 871),
               child: Image.asset('assets/images/onboarding2.png'),
             ),
 
             SizedBox(height: height * (22/871)),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width:  width* (8/390),
-                  height: height*(8/871),
-                  decoration: BoxDecoration(
-                    color: Color(0xFFBBBBF7).withOpacity(0.3),
-                    shape: BoxShape.circle,
-                  ),
-                ),
-                SizedBox(width: width*(12/390)),
-                Container(
-                  width:  width* (8/390),
-                  height: height*(8/871),
-                  decoration: BoxDecoration(
-                    color: Color(0xFFBBBBF7),
-                    shape: BoxShape.circle,
-                  ),
-                ),
-                SizedBox(width: width*(12/390)),
-                Container(
-                  width:  width* (8/390),
-                  height: height*(8/871),
-                  decoration: BoxDecoration(
-                    color: Color(0xFFBBBBF7).withOpacity(0.3),
-                    shape: BoxShape.circle,
-                  ),
-                ),
-              ],
-            ),
-
             SizedBox(height: height * (24/871)),
 
             SizedBox(
@@ -89,12 +56,7 @@ class Onboarding2Page extends StatelessWidget {
               height: height * (48 / 871),
 
               child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Onboarding3Page()),
-                  );
-                },
+                onPressed: onPressed,
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
                   backgroundColor: Color(0xffBBBBF7),
