@@ -4,7 +4,6 @@ import 'Provider/Provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
   runApp(MultiProvider(providers: [ChangeNotifierProvider(create: (context) => CurrentSate())],child: MyApp()));
 }
 
