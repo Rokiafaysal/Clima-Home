@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_home_app/Provider/Provider.dart';
+import 'package:smart_home_app/screens/Controls_UI/Backend/Provider.dart';
 import 'package:smart_home_app/widgets/switch_card.dart';
 import 'package:smart_home_app/Constants.dart';
 
@@ -12,20 +12,23 @@ class AutoContent extends StatelessWidget {
     double height = Constants(context: context).ScreenHeight;
     
     List<Widget> SwitchCards = [
-      Consumer<CurrentSate> (builder: (context, provider, _){
-        return SwitchCard(title: "Fan",imagePath: "assets/images/fanToggle.png",initialAuto: provider.fan_State,onSwitch: (isAuto) => provider.Togglefan(),);
+      Consumer<CurrentState> (builder: (context, provider, _){
+        return SwitchCard(title: "Fan",imagePath: "assets/images/fanToggle.png",initialAuto: provider.autoFanState,onSwitch: (isAuto) => provider.toggleFan(type: "auto"),);
       }),
 
-      Consumer<CurrentSate> (builder: (context, provider, _){
-      return SwitchCard(title: "Light",imagePath: "assets/images/idea.png",initialAuto:provider.Light_State ,onSwitch: (isAuto) => provider.ToggleLight());
+      Consumer<CurrentState> (builder: (context, provider, _){
+      return SwitchCard(title: "Light",imagePath: "assets/images/idea.png",initialAuto:provider.autoLightState ,
+      onSwitch: (isAuto) =>provider.toggleLight(type: "auto")
+      );
       }),
 
-      Consumer<CurrentSate>(builder: (context, provider, _) {
-        return SwitchCard(title: "Curtain",imagePath: "assets/images/curtainToggle.png",initialAuto: provider.Curtain_State,onSwitch: (isAuto) =>provider.ToggleCurtain());
+      Consumer<CurrentState>(builder: (context, provider, _) {
+        return SwitchCard(title: "Curtain",imagePath: "assets/images/curtainToggle.png",initialAuto: provider.autoCurtainState,
+        onSwitch: (isAuto) =>provider.toggleCurtain(type: "auto"));
       }),
 
-      Consumer<CurrentSate>(builder: (context, provider, _) {
-        return SwitchCard(title: "Garage",imagePath: "assets/images/garageToggle.png",initialAuto: provider.Garage_State,onSwitch: (isAuto) => provider.ToggleGarage());
+      Consumer<CurrentState>(builder: (context, provider, _) {
+        return SwitchCard(title: "Garage",imagePath: "assets/images/garageToggle.png",initialAuto: provider.autoGarageState,onSwitch: (isAuto) => provider.toggleGarage(type: "auto"));
       })
       
       

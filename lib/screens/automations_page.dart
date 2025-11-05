@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:smart_home_app/widgets/automation_card.dart';
+import 'package:smart_home_app/screens/Controls_UI/Backend/Provider.dart';
 
 class AutomationsPage extends StatefulWidget {
   const AutomationsPage({super.key});
@@ -23,11 +25,11 @@ class _AutomationsPageState extends State<AutomationsPage> {
 
     //! ================================================================================== Column Widgets ======================================= 
     List<Widget> AnimationCardsList = [
-            AutomationCard(hintText: 'Active when you\'re home',text: 'If Temp > 30°C \n→ Fan ON',imageName: 'assets/images/fanOn.png',onSwitch: (isAuto) {},),
+            AutomationCard(hintText: 'Active when you\'re home',text: 'If Temp > 30°C \n→ Fan ON',imageName: 'assets/images/fanOn.png',initialAuto: Provider.of<CurrentState>(context).autoFanState,onSwitch: (isAuto) {},),
             AutomationCard(hintText: 'Active 10 PM to 6 AM',text: 'If Motion at Night \n→ Light ON',imageName: 'assets/images/Motion.png',onSwitch: (isAuto) {},),
-            AutomationCard(hintText: 'Always active',text: 'If Rain Detected \n→ Curtain CLOSE',imageName: 'assets/images/rainDetected.png',onSwitch: (isAuto) {},),
+            AutomationCard(hintText: 'Always active',text: 'If Rain Detected \n→ Curtain CLOSE',imageName: 'assets/images/rainDetected.png',onSwitch: (isAuto) {},initialAuto: Provider.of<CurrentState>(context).autoCurtainState,),
             AutomationCard(hintText: 'Active 06:30 AM to 09:30 AM',text: 'If It\'s Sunrise \n→ Curtain OPEN',imageName: 'assets/images/Sunrise.png',onSwitch: (isAuto) {},),
-            AutomationCard(hintText: 'Always active',text: 'If Away from Home \n→ Garage CLOSE',imageName: 'assets/images/home.png',onSwitch: (isAuto) {},),
+            AutomationCard(hintText: 'Always active',text: 'If Away from Home \n→ Garage CLOSE',imageName: 'assets/images/home.png',onSwitch: (isAuto) {},initialAuto: Provider.of<CurrentState>(context).autoGarageState,),
     ];
 
     
