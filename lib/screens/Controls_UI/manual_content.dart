@@ -18,22 +18,22 @@ class ManualContent extends StatelessWidget {
     List<Widget> SwitchCards = [
       Consumer<CurrentState> (builder: (context, provider, _){
         return SwitchCard(title: "Fan",imagePath: "assets/images/fanToggle.png",initialAuto: provider.manualFanState,
-        onSwitch: (bool isAuto) => provider.toggleFan(type: "manual"));
+        onSwitch: (bool isAuto) => provider.toggleFan(context: context,type: "manual"));
       }),
 
       Consumer<CurrentState> (builder: (context, provider, _){
       return SwitchCard(title: "Light",imagePath: "assets/images/idea.png",initialAuto:provider.manualLightState ,
-      onSwitch: (bool isAuto) =>provider.toggleLight(type: "manual"));
+      onSwitch: (bool isAuto) =>provider.toggleLight(context: context,type: "manual"));
     }),
 
       Consumer<CurrentState>(builder: (context, provider, _) {
         return SwitchCard(title: "Curtain",imagePath: "assets/images/curtainToggle.png",initialAuto: provider.manualCurtainState,
-        onSwitch: (bool isAuto) => provider.toggleCurtain(type: "manual"));
+        onSwitch: (bool isAuto) => provider.toggleCurtain(context: context,type: "manual"));
       }),
 
       Consumer<CurrentState>(builder: (context, provider, _) {
         return SwitchCard(title: "Garage",imagePath: "assets/images/garageToggle.png",initialAuto: provider.manualGarageState,
-        onSwitch:  (bool isAuto)  =>provider.toggleGarage(type: "manual"));
+        onSwitch:  (bool isAuto)  =>provider.toggleGarage(context: context,type: "manual"));
       })
     ];
 

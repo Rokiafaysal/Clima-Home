@@ -13,22 +13,22 @@ class AutoContent extends StatelessWidget {
     
     List<Widget> SwitchCards = [
       Consumer<CurrentState> (builder: (context, provider, _){
-        return SwitchCard(title: "Fan",imagePath: "assets/images/fanToggle.png",initialAuto: provider.autoFanState,onSwitch: (isAuto) => provider.toggleFan(type: "auto"),);
+        return SwitchCard(title: "Fan",imagePath: "assets/images/fanToggle.png",initialAuto: provider.autoFanState,onSwitch: (isAuto) => provider.toggleFan(context: context,type: "auto"),);
       }),
 
       Consumer<CurrentState> (builder: (context, provider, _){
       return SwitchCard(title: "Light",imagePath: "assets/images/idea.png",initialAuto:provider.autoLightState ,
-      onSwitch: (isAuto) =>provider.toggleLight(type: "auto")
+      onSwitch: (isAuto) =>provider.toggleLight(context: context,type: "auto")
       );
       }),
 
       Consumer<CurrentState>(builder: (context, provider, _) {
         return SwitchCard(title: "Curtain",imagePath: "assets/images/curtainToggle.png",initialAuto: provider.autoCurtainState,
-        onSwitch: (isAuto) =>provider.toggleCurtain(type: "auto"));
+        onSwitch: (isAuto) =>provider.toggleCurtain(context: context,type: "auto"));
       }),
 
       Consumer<CurrentState>(builder: (context, provider, _) {
-        return SwitchCard(title: "Garage",imagePath: "assets/images/garageToggle.png",initialAuto: provider.autoGarageState,onSwitch: (isAuto) => provider.toggleGarage(type: "auto"));
+        return SwitchCard(title: "Garage",imagePath: "assets/images/garageToggle.png",initialAuto: provider.autoGarageState,onSwitch: (isAuto) => provider.toggleGarage(context: context,type: "auto"));
       })
       
       

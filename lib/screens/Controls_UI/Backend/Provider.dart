@@ -25,54 +25,56 @@ class CurrentState extends ChangeNotifier {
   bool get autoGarageState => _autoGarage;
 
 
-  void toggleFan({required String type}) {
+  void toggleFan({required BuildContext context,required String type}) {
     if (type == "auto") {
       _autoFan = !_autoFan;
       _manualFan = false; 
-      // ManualControl.openfan(state: _manualFan);
-      openfan(state: _manualFan);
+      ManualControl.openfan(context: context,state: _manualFan);
+      // openfan(state: _manualFan);
       AsyncFunction.startAutoMode(device: "fan",isAutoMode: _autoFan, task: () async {await AutoControl.FanAutoMode();});
     } 
     else if (type == "manual") {
       _manualFan = !_manualFan;
       _autoFan = false;
-      // ManualControl.openfan(state: _manualFan);
-      openfan(state: _manualFan);
+      ManualControl.openfan(context: context,state: _manualFan);
+      // openfan(state: _manualFan);
       AsyncFunction.startAutoMode(device: "fan",isAutoMode: _autoFan, task: () async {await AutoControl.FanAutoMode();});
 
     }
     notifyListeners();
   }
 
-  void toggleLight({required String type}) {
+  void toggleLight({required BuildContext context,required String type}) {
     if (type == "auto") {
       _autoLight = !_autoLight;
       _manualLight = false;
-      // ManualControl.openlight(state: _autoLight);
-      openlight(state: _autoLight);
+      ManualControl.openlight(context: context,state: _autoLight);
+      // openlight(state: _autoLight);
       AsyncFunction.startAutoMode(device: "light",isAutoMode: _autoLight, task: () async{await AutoControl.LightAutoMode();});
     } 
     else if (type == "manual") {
       _manualLight = !_manualLight;
       _autoLight = false;
-      // ManualControl.openlight(state: _autoLight);
-      openlight(state: _autoLight);
+      ManualControl.openlight(context: context,state: _autoLight);
+      // openlight(state: _autoLight);
       AsyncFunction.startAutoMode(device: "light",isAutoMode: _autoLight, task: () async{await AutoControl.LightAutoMode();});
     }
     notifyListeners();
   }
 
-  void toggleCurtain({required String type}) {
+  void toggleCurtain({required BuildContext context,required String type}) {
   if (type == "auto") {
     _autoCurtain = !_autoCurtain;
     _manualCurtain = false;
-    opencurtain(state: _manualCurtain);
+    // opencurtain(state: _manualCurtain);
+    ManualControl.opencurtain(context: context,state: _manualCurtain);
     AsyncFunction.startAutoMode(device: "curtain",isAutoMode: _autoCurtain,task: () async{ await AutoControl.CurtuinAutoMode();});
   } 
   else if (type == "manual") {
     _manualCurtain = !_manualCurtain;
     _autoCurtain = false;
-    opencurtain(state: _manualCurtain);
+    // opencurtain(state: _manualCurtain);
+    ManualControl.opencurtain(context: context,state: _manualCurtain);
     AsyncFunction.startAutoMode(device: "curtain",isAutoMode: _autoCurtain,task: () async{ await AutoControl.CurtuinAutoMode();});
   }
 
@@ -80,19 +82,19 @@ class CurrentState extends ChangeNotifier {
 }
 
 
-  void toggleGarage({required String type}) {
+  void toggleGarage({required BuildContext context,required String type}) {
     if (type == "auto") {
       _autoGarage = !_autoGarage;
       _manualGarage = false;
-      // ManualControl.opengarage(state: _manualGarage);
-      opengarage(state: _manualGarage);
+      ManualControl.opengarage(context: context,state: _manualGarage);
+      // opengarage(state: _manualGarage);
       AsyncFunction.startAutoMode(device: "garage",isAutoMode: _autoGarage, task: ()async{await AutoControl.GarageAutoMode() ;});
     } 
     else if (type == "manual") {
       _manualGarage = !_manualGarage;
       _autoGarage = false;
-      // ManualControl.opengarage(state: _manualGarage);
-      opengarage(state: _manualGarage);
+      ManualControl.opengarage(context: context,state: _manualGarage);
+      // opengarage(state: _manualGarage);
       AsyncFunction.startAutoMode(device: "garage",isAutoMode: _autoGarage, task: ()async{await AutoControl.GarageAutoMode() ;});
     }
     notifyListeners();
