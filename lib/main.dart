@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:smart_home_app/Provider/Sensors.dart';
+import 'package:smart_home_app/screens/Controls_UI/Backend/IP.dart';
 import 'package:smart_home_app/screens/onboarding/welcome_page.dart';
 import 'package:smart_home_app/screens/Controls_UI/Backend/Provider.dart';
 import 'package:provider/provider.dart';
 
 
 void main() {
-  runApp(MultiProvider(providers: [ChangeNotifierProvider(create: (context) => CurrentState())],child: MyApp()));
+  runApp(MultiProvider(providers: [ChangeNotifierProvider(create: (context) => CurrentState()),ChangeNotifierProvider(create: (context) => CurrentIP()),ChangeNotifierProvider(create: (context) => Sensors())],child: MyApp()));
 }
 
 
