@@ -31,14 +31,14 @@ class CurrentState extends ChangeNotifier {
       _manualFan = false; 
       ManualControl.openfan(context: context,state: _manualFan);
       // openfan(state: _manualFan);
-      AsyncFunction.startAutoMode(device: "fan",isAutoMode: _autoFan, task: () async {await AutoControl.FanAutoMode();});
+      AsyncFunction.startAutoMode(device: "fan",time: 15,isAutoMode: _autoFan, task: () async {await AutoControl.FanAutoMode(context: context);});
     } 
     else if (type == "manual") {
       _manualFan = !_manualFan;
       _autoFan = false;
       ManualControl.openfan(context: context,state: _manualFan);
       // openfan(state: _manualFan);
-      AsyncFunction.startAutoMode(device: "fan",isAutoMode: _autoFan, task: () async {await AutoControl.FanAutoMode();});
+      AsyncFunction.startAutoMode(device: "fan",time: 15,isAutoMode: _autoFan, task: () async {await AutoControl.FanAutoMode(context: context);});
 
     }
     notifyListeners();
@@ -50,14 +50,14 @@ class CurrentState extends ChangeNotifier {
       _manualLight = false;
       ManualControl.openlight(context: context,state: _autoLight);
       // openlight(state: _autoLight);
-      AsyncFunction.startAutoMode(device: "light",isAutoMode: _autoLight, task: () async{await AutoControl.LightAutoMode();});
+      AsyncFunction.startAutoMode(device: "light",time: 15,isAutoMode: _autoLight, task: () async{await AutoControl.LightAutoMode(context: context);});
     } 
     else if (type == "manual") {
       _manualLight = !_manualLight;
       _autoLight = false;
       ManualControl.openlight(context: context,state: _autoLight);
       // openlight(state: _autoLight);
-      AsyncFunction.startAutoMode(device: "light",isAutoMode: _autoLight, task: () async{await AutoControl.LightAutoMode();});
+      AsyncFunction.startAutoMode(device: "light",time: 15,isAutoMode: _autoLight, task: () async{await AutoControl.LightAutoMode(context: context);});
     }
     notifyListeners();
   }
@@ -68,14 +68,14 @@ class CurrentState extends ChangeNotifier {
     _manualCurtain = false;
     // opencurtain(state: _manualCurtain);
     ManualControl.opencurtain(context: context,state: _manualCurtain);
-    AsyncFunction.startAutoMode(device: "curtain",isAutoMode: _autoCurtain,task: () async{ await AutoControl.CurtuinAutoMode();});
+    AsyncFunction.startAutoMode(device: "curtain",time: 15,isAutoMode: _autoCurtain,task: () async{ await AutoControl.CurtuinAutoMode(context: context);});
   } 
   else if (type == "manual") {
     _manualCurtain = !_manualCurtain;
     _autoCurtain = false;
     // opencurtain(state: _manualCurtain);
     ManualControl.opencurtain(context: context,state: _manualCurtain);
-    AsyncFunction.startAutoMode(device: "curtain",isAutoMode: _autoCurtain,task: () async{ await AutoControl.CurtuinAutoMode();});
+    AsyncFunction.startAutoMode(device: "curtain",time: 15,isAutoMode: _autoCurtain,task: () async{ await AutoControl.CurtuinAutoMode(context: context);});
   }
 
   notifyListeners();
@@ -88,14 +88,14 @@ class CurrentState extends ChangeNotifier {
       _manualGarage = false;
       ManualControl.opengarage(context: context,state: _manualGarage);
       // opengarage(state: _manualGarage);
-      AsyncFunction.startAutoMode(device: "garage",isAutoMode: _autoGarage, task: ()async{await AutoControl.GarageAutoMode() ;});
+      AsyncFunction.startAutoMode(device: "garage",time: 15,isAutoMode: _autoGarage, task: ()async{await AutoControl.GarageAutoMode() ;});
     } 
     else if (type == "manual") {
       _manualGarage = !_manualGarage;
       _autoGarage = false;
       ManualControl.opengarage(context: context,state: _manualGarage);
       // opengarage(state: _manualGarage);
-      AsyncFunction.startAutoMode(device: "garage",isAutoMode: _autoGarage, task: ()async{await AutoControl.GarageAutoMode() ;});
+      AsyncFunction.startAutoMode(device: "garage",time: 15,isAutoMode: _autoGarage, task: ()async{await AutoControl.GarageAutoMode() ;});
     }
     notifyListeners();
   }

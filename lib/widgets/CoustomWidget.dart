@@ -18,8 +18,10 @@ class Customwidgets {
       duration: const Duration(seconds: 3)
     );
 
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    if (context.mounted) {
+  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+}
   }
 
 
