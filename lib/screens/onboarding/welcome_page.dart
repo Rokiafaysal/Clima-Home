@@ -88,10 +88,10 @@ class WelcomePage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               ),
               child: Text(
-                'Get started',
+                'Get Started',
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 16,
+                  fontSize: 14,
                   fontWeight: FontWeight.w700,
                 ),
               ),

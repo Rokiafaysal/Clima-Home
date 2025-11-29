@@ -48,7 +48,7 @@ class _Onboarding extends State<Onboarding>{
     SmoothPageIndicator pages_widget =  SmoothPageIndicator(controller: controller,count:Pages.length,effect:  SwapEffect(dotHeight: 9,dotWidth: 9,activeDotColor: Color(0xffbbbbf7),dotColor: Color(0xffeaeafd)));    
     //! ====================================================== interface body ==========================================
 
-    Stack controls = Stack(alignment: AlignmentGeometry.center,children: [Positioned.fill(child: pages_view),Positioned(child:pages_widget,bottom: 210)]);
+    Stack controls = Stack(alignment: AlignmentGeometry.center,children: [Positioned.fill(child: pages_view),Positioned(child:pages_widget,bottom: 150)]);
     Container main_body = Container(child: controls);
     return Scaffold(body: main_body);
     

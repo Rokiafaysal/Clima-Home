@@ -26,9 +26,9 @@ class _AutomationsPageState extends State<AutomationsPage> {
     //! ================================================================================== Column Widgets ======================================= 
     List<Widget> AnimationCardsList = [
             AutomationCard(hintText: 'Active when you\'re home',text: 'If Temp > 30°C \n→ Fan ON',imageName: 'assets/images/fanOn.png',initialAuto: Provider.of<CurrentState>(context).autoFanState,onSwitch: (isAuto) {},),
-            AutomationCard(hintText: 'Active 10 PM to 6 AM',text: 'If Motion at Night \n→ Light ON',imageName: 'assets/images/Motion.png',onSwitch: (isAuto) {},initialAuto:Provider.of<CurrentState>(context).autoLightState),
-            // AutomationCard(hintText: 'Always active',text: 'If Rain Detected \n→ Curtain CLOSE',imageName: 'assets/images/rainDetected.png',onSwitch: (isAuto) {},initialAuto: Provider.of<CurrentState>(context).autoCurtainState,),
-            AutomationCard(hintText: 'Active 06:30 AM to 09:30 AM',text: 'If It\'s Sunrise \n→ Curtain OPEN',imageName: 'assets/images/Sunrise.png',onSwitch: (isAuto) {},initialAuto:Provider.of<CurrentState>(context).autoCurtainState ,),
+            AutomationCard(hintText: '10:00 PM to 06:00 AM',text: 'If Motion at Night \n→ Light ON',imageName: 'assets/images/Motion.png',onSwitch: (isAuto) {},initialAuto:Provider.of<CurrentState>(context).autoLightState),
+            AutomationCard(hintText: 'Always active',text: 'If Rain Detected \n→ Curtain CLOSE',imageName: 'assets/images/rainDetected.png',onSwitch: (isAuto) {},initialAuto: Provider.of<CurrentState>(context).autoCurtainState,),
+            AutomationCard(hintText: '06:30 AM to 09:30 AM',text: 'If It\'s Sunrise \n→ Curtain OPEN',imageName: 'assets/images/Sunrise.png',onSwitch: (isAuto) {},initialAuto:Provider.of<CurrentState>(context).autoCurtainState ,),
             AutomationCard(hintText: 'Always active',text: 'If Away from Home \n→ Garage CLOSE',imageName: 'assets/images/home.png',onSwitch: (isAuto) {},initialAuto: Provider.of<CurrentState>(context).autoGarageState,),
     ];
 

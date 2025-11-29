@@ -6,7 +6,7 @@ class Customwidgets {
 
   static void showCustomSnackBar({required BuildContext context,required String message,bool isError = false}) {
 
-    Text SnackbarText = Text(message,maxLines: 1,overflow: TextOverflow.ellipsis,style: TextStyle(color: Colors.white, fontFamily: "inter", fontSize: 16),);
+    Text SnackbarText = Text(message,maxLines: 1,overflow: TextOverflow.ellipsis,style: TextStyle(color: Colors.white, fontFamily: "inter", fontSize: 14),);
 
     Icon SnackbarIcon = Icon(isError ? Icons.error_outline : Icons.check_circle_outline,color: isError ? Colors.redAccent[200] : Colors.greenAccent[400],);
     Row SnackbarContent = Row(children: [SnackbarIcon,Expanded(child: SnackbarText)],mainAxisAlignment: MainAxisAlignment.center,spacing: 12,);

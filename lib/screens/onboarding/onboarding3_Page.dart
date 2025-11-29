@@ -88,12 +88,14 @@ class Onboarding3Page extends StatelessWidget {
                   ),
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 ),
-                child: Text(
-                  'Let\'s Go',
-                  style: TextStyle(
-                    color: Color(0xff111118),
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
+                child: Center(
+                  child: Text(
+                    "Let's Go",
+                    style: TextStyle(
+                      color: Color(0xff111118),
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
               ),

@@ -56,11 +56,11 @@ class _AutoRuleCardState extends State<AutomationCard> {
         ],
       ),
       child: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(10.0),
         child: Row(
           children: [
             Image.asset(widget.imageName),
-            SizedBox(width: width * (20 / 390)),
+            SizedBox(width: width * (25 / 390)),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -73,7 +73,7 @@ class _AutoRuleCardState extends State<AutomationCard> {
                     color: Color(0xff0E0E1B),
                   ),
                 ),
-                SizedBox(height: height * (2 / 871)),
+                // SizedBox(height: height * (2 / 850)),
                 Text(
                   widget.hintText,
                   softWrap: true,

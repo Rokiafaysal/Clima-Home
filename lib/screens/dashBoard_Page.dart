@@ -40,6 +40,7 @@ class _DashboardPageState extends State<DashboardPage> {
         automaticallyImplyLeading: false,
         leading: IconButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Ipconnector(),)), icon: Icon(Icons.wifi,color:Color(0xfff7f7fb) ,)),
         elevation: 0,
+        scrolledUnderElevation: 0,
         centerTitle: true,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -97,8 +98,8 @@ class _DashboardPageState extends State<DashboardPage> {
                   children: [
                     Padding(
                       padding: EdgeInsets.symmetric(
-                        horizontal: width * (30 / 390),
-                        vertical: height * (30 / 871),
+                        horizontal: width * (28 / 390),
+                        vertical: height * (28 / 871),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
