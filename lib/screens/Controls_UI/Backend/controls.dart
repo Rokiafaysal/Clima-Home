@@ -1,13 +1,14 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:flutter_vlc_player/flutter_vlc_player.dart';
 import 'package:smart_home_app/Provider/Sensors.dart';
 import 'package:smart_home_app/screens/Controls_UI/Backend/IP.dart';
-import 'dart:convert';
-import 'dart:io';
 import 'package:smart_home_app/widgets/CoustomWidget.dart';
-
 
 
 class ManualControl{
@@ -89,6 +90,15 @@ class AutoControl {
   static var prev_curtain_state = null;
   static var prev_light_state = null;
 
+  static VlcPlayerController? _vlcController;
+  static bool _garage_open_state = false;
+  static DateTime _last_garage_action = DateTime.now();
+  static bool _isGarageProcessing = false;
+  static const int _openDurationSeconds = 10;
+    
+  static const String _aiApiUrl = "https://salma3bdelaleem-principles-car-model.hf.space/gradio_api/call/predict";
+  static const String _rtspUrl = "rtsp://username:password@192.168.1.10:554/stream2";
+
 
   static Future<void> FanAutoMode({required BuildContext context}) async {
     try {
@@ -99,7 +109,7 @@ class AutoControl {
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         double temp = data['temp'];
-        String fan_state = temp >= 29? "on": "off" ;
+        String fan_state = temp >= 30? "on": "off" ;
         
       if(fan_state!= prev_curtain_state){
         final url = Uri.parse("http://${Provider.of<Sensors>(context).Light}/?fan=${fan_state}");
@@ -177,12 +187,119 @@ class AutoControl {
   }
 
 
-  static Future<void> GarageAutoMode() async {
-    print("Garage auto logic...");
+  static Future<void> GarageAutoMode({required BuildContext context}) async {
+    // 1. Prevent overlapping execution (if previous frame is still processing)
+    if (_isGarageProcessing) return;
+    _isGarageProcessing = true;
+
+    try {
+      // 2. Initialize Camera Controller if needed (Singleton pattern)
+      if (_vlcController == null) {
+        print("Initializing Garage Camera...");
+        _vlcController = VlcPlayerController.network(
+          _rtspUrl, // You can also fetch this from Provider.of<CurrentIP> if you store it there
+          hwAcc: HwAcc.full,
+          autoPlay: true,
+          options: VlcPlayerOptions(),
+        );
+        // Give it a moment to connect before trying to snap a picture
+        await Future.delayed(const Duration(seconds: 2));
+      }
+
+      // 3. Capture Frame
+      // We use a temp directory to store the snapshot
+      final Uint8List? imageBytes = await _vlcController!.takeSnapshot();
+
+      if (imageBytes != null && imageBytes.isNotEmpty) {
+        print("Garage Frame Captured. Analyzing...");
+
+        // 4. Send to AI
+        String label = await _predictImage(imageBytes);
+        print("AI Result: $label");
+
+        // 5. Logic
+        _processGarageLogic(context, label);
+      } else {
+        print("Garage Camera: Stream not ready or frame empty.");
+      }
+
+    } catch (e) {
+      print("Garage Auto Error: $e");
+    } finally {
+      _isGarageProcessing = false;
+    }
   }
 
+  // Helper: Send image to Hugging Face API
+  static Future<String> _predictImage(Uint8List imageBytes) async {
+    try {
+      String base64Image = "data:image/jpeg;base64,${base64Encode(imageBytes)}";
+      var response = await http.post(Uri.parse(_aiApiUrl),headers: {"Content-Type": "application/json"},body: jsonEncode({"data": [base64Image]}),).timeout(const Duration(seconds: 10));
 
+      if (response.statusCode == 200) {
+        var jsonResponse = jsonDecode(response.body);
+        var data = jsonResponse['data'];
 
+        if (data is List && data.isNotEmpty) {
+          if (data[0] is String) return data[0]; 
+          if (data[0] is Map) return data[0]['label'] ?? "none"; 
+        }
+      }
+      return "none";
+    } catch (e) {
+      print("AI Prediction Failed: $e");
+      return "none";
+    }
+  }
 
+  // Helper: Decision Making
+  static void _processGarageLogic(BuildContext context, String rawLabel) {
+    String cleanLabel = rawLabel.toLowerCase().trim();
+    
+    // Check if it is a car
+    bool isActuallyCar = (cleanLabel == "car" || cleanLabel == "cars");
+    if (cleanLabel.contains("non")) isActuallyCar = false;
+
+    DateTime now = DateTime.now();
+
+    // CASE 1: Car detected & Garage is Closed -> OPEN IT
+    if (isActuallyCar && !_garage_open_state) {
+      print("VALID CAR DETECTED: Opening Garage!");
+      
+      // Call your ManualControl class
+      ManualControl.opengarage(context: context, state: true);
+      
+      _garage_open_state = true;
+      _last_garage_action = now;
+    } 
+    
+    // CASE 2: Car detected & Garage is Open -> KEEP OPEN (Reset Timer)
+    else if (isActuallyCar && _garage_open_state) {
+      print("Car still present. Resetting timer.");
+      _last_garage_action = now;
+    } 
+    
+    // CASE 3: No Car & Garage is Open & Time Expired -> CLOSE IT
+    else if (_garage_open_state && 
+             now.difference(_last_garage_action).inSeconds > _openDurationSeconds) {
+      print("TIMEOUT: Closing Garage.");
+      
+      // Call your ManualControl class
+      ManualControl.opengarage(context: context, state: false);
+      
+      _garage_open_state = false;
+    }
+  }
+  
+  // Call this when the app closes or the user leaves the automation screen
+  static void disposeGarage() {
+    _vlcController?.dispose();
+    _vlcController = null;
+  }
 }
+
+
+
+
+
 

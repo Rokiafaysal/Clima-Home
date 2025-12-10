@@ -39,6 +39,10 @@ dependencies:
   http: ^1.5.0
   flutter_native_splash: ^2.4.7
   flutter_launcher_icons: ^0.14.4
+  flutter_vlc_player: ^7.4.0  # For RTSP Streaming & Snapshots
+  path_provider: ^2.1.2       # To store temporary images
+  image: ^4.1.0               # For resizing images (optional but recommended)
+  convert: ^3.1.1             # For Base64 encoding
 
 dev_dependencies:
   flutter_test:

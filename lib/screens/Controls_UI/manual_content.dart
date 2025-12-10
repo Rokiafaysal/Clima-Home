@@ -13,7 +13,6 @@ class ManualContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double height = Constants(context: context).ScreenHeight;
-    double width = Constants(context: context).ScreenWidth;
 
     List<Widget> SwitchCards = [
       Consumer<CurrentState> (builder: (context, provider, _){
@@ -37,11 +36,7 @@ class ManualContent extends StatelessWidget {
       })
     ];
 
-    SizedBox Mic =  SizedBox(width: width*(64/390),height: height*(64/871),
-            child: FloatingActionButton(backgroundColor: const Color(0xFFBABAF7),shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(999)),
-            onPressed: onAddPressed,child: const Icon(Icons.mic, color: Colors.white, size: 36,)));
-
-    return Column(children: [...SwitchCards,Align(alignment: Alignment.bottomRight,child: Mic)],crossAxisAlignment: CrossAxisAlignment.start,spacing: height * (24 / 871));
+    return Column(children: [...SwitchCards],crossAxisAlignment: CrossAxisAlignment.start,spacing: height * (24 / 871));
   }
 
 }

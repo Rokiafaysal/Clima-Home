@@ -88,14 +88,14 @@ class CurrentState extends ChangeNotifier {
       _manualGarage = false;
       ManualControl.opengarage(context: context,state: _manualGarage);
       // opengarage(state: _manualGarage);
-      AsyncFunction.startAutoMode(device: "garage",time: 15,isAutoMode: _autoGarage, task: ()async{await AutoControl.GarageAutoMode() ;});
+      AsyncFunction.startAutoMode(device: "garage",time: 15,isAutoMode: _autoGarage, task: ()async{await AutoControl.GarageAutoMode(context: context) ;});
     } 
     else if (type == "manual") {
       _manualGarage = !_manualGarage;
       _autoGarage = false;
       ManualControl.opengarage(context: context,state: _manualGarage);
       // opengarage(state: _manualGarage);
-      AsyncFunction.startAutoMode(device: "garage",time: 15,isAutoMode: _autoGarage, task: ()async{await AutoControl.GarageAutoMode() ;});
+      AsyncFunction.startAutoMode(device: "garage",time: 15,isAutoMode: _autoGarage, task: ()async{await AutoControl.GarageAutoMode(context: context) ;});
     }
     notifyListeners();
   }
