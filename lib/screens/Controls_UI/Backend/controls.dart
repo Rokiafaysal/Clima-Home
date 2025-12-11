@@ -182,6 +182,8 @@ class AutoControl {
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         double ldr = data['ldr'];
+        double rain = data['rain'];
+        Provider.of<Sensors>(context,listen: false).updaterain(newrain:rain );
         String curtain_state = ldr >= 2500? "open":"close";
       if(curtain_state != prev_curtain_state){
         final url = Uri.parse("http://${Provider.of<Sensors>(context).Light}/?curtain=${curtain_state}");

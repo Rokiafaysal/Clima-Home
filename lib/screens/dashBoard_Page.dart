@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:smart_home_app/Provider/Sensors.dart';
 import 'package:smart_home_app/functions.dart';
 import 'package:smart_home_app/screens/IPConnector.dart';
+import 'package:smart_home_app/widgets/CoustomWidget.dart';
 import 'package:smart_home_app/widgets/card_home.dart';
 import 'package:smart_home_app/widgets/smart_tip.dart';
 
@@ -163,7 +164,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       children: [
                         CardHome(
                           imageName: 'assets/images/rain.png',
-                          value: 'No Rain',
+                          value: rainMapping(),
                           title: 'Rain',
                         ),
                         SizedBox(width: width * 0.04),
@@ -202,6 +203,19 @@ class _DashboardPageState extends State<DashboardPage> {
       return "Moderate light";
     } else {
       return "Strong sun";
+    }
+  }
+
+  String rainMapping() {
+    double rain = Provider.of<Sensors>(context, listen: false).rain;
+
+    if (rain == 0) {
+      return "No Rain!";
+    } 
+    else {
+      Customwidgets.showCustomSnackBar(context: context, message: "Check Your Internet Connection!",isError: true);
+
+      return "is Raining Now!";
     }
   }
 
