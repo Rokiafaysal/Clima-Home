@@ -46,7 +46,7 @@ class ManualControl{
 
   static void opencurtain({required BuildContext context, required bool state}) async {
   try {
-    final String ip = Provider.of<CurrentIP>(context, listen: false).curtainip;
+    final String ip = Provider.of<CurrentIP>(context, listen: false).fanlightip;
     final String baseUrl = "http://$ip";
     String command = state ? "open" : "close";
     final moveUri = Uri.parse("$baseUrl/?curtain=$command");
@@ -97,7 +97,19 @@ class AutoControl {
   static const int _openDurationSeconds = 10;
     
   static const String _aiApiUrl = "https://salma3bdelaleem-principles-car-model.hf.space/gradio_api/call/predict";
-  static const String _rtspUrl = "rtsp://username:password@192.168.1.10:554/stream2";
+
+  static VlcPlayerController getGarageController() {
+  if (_vlcController == null) {
+    _vlcController = VlcPlayerController.network(
+      "rtsp://username:password@192.168.1.10:554/stream2",
+      // CHANGE THIS:
+      hwAcc: HwAcc.disabled, // Software decoding is more stable for hidden views
+      autoPlay: true, 
+      options: VlcPlayerOptions(),
+    );
+  }
+  return _vlcController!;
+}
 
 
   static Future<void> FanAutoMode({required BuildContext context}) async {
@@ -188,41 +200,31 @@ class AutoControl {
 
 
   static Future<void> GarageAutoMode({required BuildContext context}) async {
-    // 1. Prevent overlapping execution (if previous frame is still processing)
     if (_isGarageProcessing) return;
     _isGarageProcessing = true;
 
     try {
-      // 2. Initialize Camera Controller if needed (Singleton pattern)
-      if (_vlcController == null) {
-        print("Initializing Garage Camera...");
-        _vlcController = VlcPlayerController.network(
-          _rtspUrl, // You can also fetch this from Provider.of<CurrentIP> if you store it there
-          hwAcc: HwAcc.full,
-          autoPlay: true,
-          options: VlcPlayerOptions(),
+      var controller = getGarageController();
+
+      // === NEW DEBUGGING LOGIC ===
+      if (controller.value.hasError) {
+        // This will tell you if password is wrong or IP is unreachable
+        print("!!! RTSP ERROR: ${controller.value.errorDescription}");
+      } else if (!controller.value.isInitialized) {
+        print(
+          "Garage Camera: Connecting... (Is the screen with the widget visible?)",
         );
-        // Give it a moment to connect before trying to snap a picture
-        await Future.delayed(const Duration(seconds: 2));
       }
+      // ============================
 
-      // 3. Capture Frame
-      // We use a temp directory to store the snapshot
-      final Uint8List? imageBytes = await _vlcController!.takeSnapshot();
-
-      if (imageBytes != null && imageBytes.isNotEmpty) {
-        print("Garage Frame Captured. Analyzing...");
-
-        // 4. Send to AI
-        String label = await _predictImage(imageBytes);
-        print("AI Result: $label");
-
-        // 5. Logic
-        _processGarageLogic(context, label);
-      } else {
-        print("Garage Camera: Stream not ready or frame empty.");
+      if (controller.value.isInitialized) {
+        final Uint8List? imageBytes = await controller.takeSnapshot();
+        if (imageBytes != null && imageBytes.isNotEmpty) {
+          print("Garage Frame Captured.");
+          String label = await _predictImage(imageBytes);
+          _processGarageLogic(context, label);
+        }
       }
-
     } catch (e) {
       print("Garage Auto Error: $e");
     } finally {
@@ -234,15 +236,23 @@ class AutoControl {
   static Future<String> _predictImage(Uint8List imageBytes) async {
     try {
       String base64Image = "data:image/jpeg;base64,${base64Encode(imageBytes)}";
-      var response = await http.post(Uri.parse(_aiApiUrl),headers: {"Content-Type": "application/json"},body: jsonEncode({"data": [base64Image]}),).timeout(const Duration(seconds: 10));
+      var response = await http
+          .post(
+            Uri.parse(_aiApiUrl),
+            headers: {"Content-Type": "application/json"},
+            body: jsonEncode({
+              "data": [base64Image],
+            }),
+          )
+          .timeout(const Duration(seconds: 10));
 
       if (response.statusCode == 200) {
         var jsonResponse = jsonDecode(response.body);
         var data = jsonResponse['data'];
 
         if (data is List && data.isNotEmpty) {
-          if (data[0] is String) return data[0]; 
-          if (data[0] is Map) return data[0]['label'] ?? "none"; 
+          if (data[0] is String) return data[0];
+          if (data[0] is Map) return data[0]['label'] ?? "none";
         }
       }
       return "none";
@@ -255,7 +265,7 @@ class AutoControl {
   // Helper: Decision Making
   static void _processGarageLogic(BuildContext context, String rawLabel) {
     String cleanLabel = rawLabel.toLowerCase().trim();
-    
+
     // Check if it is a car
     bool isActuallyCar = (cleanLabel == "car" || cleanLabel == "cars");
     if (cleanLabel.contains("non")) isActuallyCar = false;
@@ -265,37 +275,36 @@ class AutoControl {
     // CASE 1: Car detected & Garage is Closed -> OPEN IT
     if (isActuallyCar && !_garage_open_state) {
       print("VALID CAR DETECTED: Opening Garage!");
-      
+
       // Call your ManualControl class
       ManualControl.opengarage(context: context, state: true);
-      
+
       _garage_open_state = true;
       _last_garage_action = now;
-    } 
-    
+    }
     // CASE 2: Car detected & Garage is Open -> KEEP OPEN (Reset Timer)
     else if (isActuallyCar && _garage_open_state) {
       print("Car still present. Resetting timer.");
       _last_garage_action = now;
-    } 
-    
+    }
     // CASE 3: No Car & Garage is Open & Time Expired -> CLOSE IT
-    else if (_garage_open_state && 
-             now.difference(_last_garage_action).inSeconds > _openDurationSeconds) {
+    else if (_garage_open_state &&
+        now.difference(_last_garage_action).inSeconds > _openDurationSeconds) {
       print("TIMEOUT: Closing Garage.");
-      
+
       // Call your ManualControl class
       ManualControl.opengarage(context: context, state: false);
-      
+
       _garage_open_state = false;
     }
   }
-  
+
   // Call this when the app closes or the user leaves the automation screen
   static void disposeGarage() {
     _vlcController?.dispose();
     _vlcController = null;
   }
+
 }
 
 

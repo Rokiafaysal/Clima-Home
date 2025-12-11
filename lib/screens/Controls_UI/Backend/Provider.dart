@@ -55,7 +55,7 @@ class CurrentState extends ChangeNotifier {
     else if (type == "manual") {
       _manualLight = !_manualLight;
       _autoLight = false;
-      ManualControl.openlight(context: context,state: _autoLight);
+      ManualControl.openlight(context: context,state: _manualLight);
       // openlight(state: _autoLight);
       AsyncFunction.startAutoMode(device: "light",time: 15,isAutoMode: _autoLight, task: () async{await AutoControl.LightAutoMode(context: context);});
     }
