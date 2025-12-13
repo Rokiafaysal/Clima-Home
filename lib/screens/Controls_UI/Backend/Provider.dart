@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:smart_home_app/Helper/Continuos_threading.dart';
 import 'package:smart_home_app/screens/Controls_UI/Backend/controls.dart';
-// import 'package:smart_home_app/screens/Controls_UI/Backend/controls.dart';
 
 class CurrentState extends ChangeNotifier {
   bool _manualFan = false;
@@ -100,45 +99,3 @@ class CurrentState extends ChangeNotifier {
     notifyListeners();
   }
 }
-
-
-
-
-  void openfan({required bool state}) async {
-    if (state == true) {
-      print("fan is activitead");
-    } else {
-      print("fan is not activitead");
-
-    }
-  }
-
-  void openlight({required bool state}) async {
-    if (state == true) {
-      print("light is activitead");
-    } else {
-      print("light is not activitead");
-
-    }
-  }
-
-
-  void opencurtain({required bool state}) async {
-    if (state == true) {
-      print("curtain is activitead");
-    } else {
-      print("curtain is not activitead");
-
-    }
-  }
-
-
-
-  void opengarage({required bool state}) async {
-    if (state == true) {
-      print("garage is activitead");
-    } else {
-      print("garage is not activitead");
-
-    }
-  }

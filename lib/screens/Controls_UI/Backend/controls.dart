@@ -102,8 +102,7 @@ class AutoControl {
   if (_vlcController == null) {
     _vlcController = VlcPlayerController.network(
       "rtsp://username:password@192.168.1.10:554/stream2",
-      // CHANGE THIS:
-      hwAcc: HwAcc.disabled, // Software decoding is more stable for hidden views
+      hwAcc: HwAcc.disabled, 
       autoPlay: true, 
       options: VlcPlayerOptions(),
     );
@@ -134,9 +133,9 @@ class AutoControl {
         Customwidgets.showCustomSnackBar(context: context, message: "Check Your Internet Connection!",isError: true);
       }
     } 
-    on SocketException catch (_) {if (context.mounted) {Customwidgets.showCustomSnackBar(context: context, message: "Failed to connect! Check WiFi or ESP IP.", isError: true);}}
+    on SocketException catch (_) {if (context.mounted) {Customwidgets.showCustomSnackBar(context: context, message: "Failed to connect! Check Your Internet Connection.", isError: true);}}
     on TimeoutException catch (_) {if (context.mounted) {Customwidgets.showCustomSnackBar(context: context, message: "Connection Timed Out!", isError: true);}}
-    catch (e) {Customwidgets.showCustomSnackBar(context: context, message: "Something wrong in ESP!",isError: true);}
+    catch (e) {Customwidgets.showCustomSnackBar(context: context, message: "Failed to connect! Check Your Internet Connection!",isError: true);}
   }
     
 
@@ -167,9 +166,9 @@ class AutoControl {
         Customwidgets.showCustomSnackBar(context: context, message: "Check Your Internet Connection!",isError: true);
       }
     } 
-    on SocketException catch (_) {if (context.mounted) {Customwidgets.showCustomSnackBar(context: context, message: "Failed to connect! Check WiFi or ESP IP.", isError: true);}}
+    on SocketException catch (_) {if (context.mounted) {Customwidgets.showCustomSnackBar(context: context, message: "Failed to connect! Check Your Internet Connection.", isError: true);}}
     on TimeoutException catch (_) {if (context.mounted) {Customwidgets.showCustomSnackBar(context: context, message: "Connection Timed Out!", isError: true);}}
-    catch (e) {Customwidgets.showCustomSnackBar(context: context, message: "Something wrong in ESP!",isError: true);}
+    catch (e) {Customwidgets.showCustomSnackBar(context: context, message: "Failed to connect! Check Your Internet Connection!",isError: true);}
   }
 
 
@@ -195,9 +194,9 @@ class AutoControl {
         Customwidgets.showCustomSnackBar(context: context, message: "Check Your Internet Connection!",isError: true);
       }
     } 
-    on SocketException catch (_) {if (context.mounted) {Customwidgets.showCustomSnackBar(context: context, message: "Failed to connect! Check WiFi or ESP IP.", isError: true);}}
+    on SocketException catch (_) {if (context.mounted) {Customwidgets.showCustomSnackBar(context: context, message: "Failed to connect! Check Your Internet Connection.", isError: true);}}
     on TimeoutException catch (_) {if (context.mounted) {Customwidgets.showCustomSnackBar(context: context, message: "Connection Timed Out!", isError: true);}}
-    catch (e) {Customwidgets.showCustomSnackBar(context: context, message: "Something wrong in ESP!",isError: true);}
+    catch (e) {Customwidgets.showCustomSnackBar(context: context, message: "Failed to connect! Check Your Internet Connection!",isError: true);}
   }
 
 
